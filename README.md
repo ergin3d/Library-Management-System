@@ -1,5 +1,6 @@
-# Library-Management-System
+# Library Management System
 Create a command - line Library Management System(LMS) that manages books, users, and transactions.
+Made with the help of Github Copilot and ChatGPT 4
 
 Requirements :
 
