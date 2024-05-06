@@ -1,0 +1,110 @@
+// Define the Book class
+class Book:
+    // Attributes
+    ISBN
+    Title
+    Author
+    Genre
+    Availability: bool
+
+    // Methods
+    method displayDetails():
+        Print ISBN, Title, Author, Genre, Availability
+
+    method checkAvailability():
+        return Availability
+
+    method updateAvailability(status: bool):
+        Availability = status
+
+    // Operator Overloading
+    operator ==(other: Book):
+        return ISBN == other.ISBN
+
+    operator !=(other: Book):
+        return ISBN != other.ISBN
+
+// Define the User class
+class User:
+    // Attributes
+    ID
+    Name
+    Email
+    PhoneNumber
+    BorrowedBooks: List of Book
+
+    // Methods
+    method displayDetails():
+        Print ID, Name, Email, PhoneNumber
+        for book in BorrowedBooks:
+            book.displayDetails()
+
+    method borrowBook(book: Book):
+        if book.checkAvailability():
+            book.updateAvailability(false)
+            BorrowedBooks.append(book)
+
+    method returnBook(book: Book):
+        book.updateAvailability(true)
+        BorrowedBooks.remove(book)
+
+// Define the Transaction base class
+class Transaction:
+    // Attributes
+    TransactionID
+    Date
+    Book: Book
+    User: User
+
+    // Virtual Methods
+    virtual method issueBook():
+        pass
+
+    virtual method returnBook():
+        pass
+
+// Define IssueTransaction class derived from Transaction
+class IssueTransaction extends Transaction:
+    // Override issueBook
+    override method issueBook():
+        User.borrowBook(Book)
+
+// Define ReturnTransaction class derived from Transaction
+class ReturnTransaction extends Transaction:
+    // Override returnBook
+    override method returnBook():
+        User.returnBook(Book)
+
+// Define the Library class
+class Library:
+    // Attributes
+    Books: List of Book
+    Users: List of User
+    Transactions: List of Transaction
+
+    // Methods using templates for adding/removing books and users
+    method add<T>(item: T, collection: List of T):
+        collection.append(item)
+
+    method remove<T>(item: T, collection: List of T):
+        collection.remove(item)
+
+    method displayAllBooks():
+        for book in Books:
+            book.displayDetails()
+
+    method displayAllUsers():
+        for user in Users:
+            user.displayDetails()
+
+    method displayAllTransactions():
+        for transaction in Transactions:
+            Print transaction details
+
+// Main Program
+Create instance of Library
+Populate Library with initial Books and Users
+Manage the Library using command-line interface:
+    Loop:
+        Display menu options (Add Book, Remove Book, Add User, Remove User, Borrow Book, Return Book, etc.)
+        Get user input and perform the corresponding Library method
